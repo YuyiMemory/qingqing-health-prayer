@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>晴晴的健康祈願庭院</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app" aria-label="晴晴的健康祈願庭院小遊戲">
+      <section class="game-shell">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">給媽媽的祝福</p>
+            <h1>晴晴的健康祈願庭院</h1>
+          </div>
+          <div class="status-panel" aria-live="polite">
+            <div>
+              <span>祝福露珠</span>
+              <strong id="score">0</strong>
+            </div>
+            <div>
+              <span>平安花</span>
+              <strong id="flowers">0</strong>
+            </div>
+            <div>
+              <span>時間</span>
+              <strong id="timer">45</strong>
+            </div>
+          </div>
+        </header>
+
+        <section class="play-area" id="playArea">
+          <canvas id="gameCanvas" width="960" height="540" aria-label="收集健康祝福的遊戲畫面"></canvas>
+          <div class="message-card" id="messageCard">
+            <p id="messageText">按下開始，把每一顆光都送給媽媽。</p>
+            <button id="startButton" type="button">開始祈願</button>
+          </div>
+        </section>
+
+        <footer class="controls">
+          <button class="control-btn" id="leftButton" type="button" aria-label="向左移動">←</button>
+          <button class="control-btn primary" id="blessButton" type="button">送出祝福</button>
+          <button class="control-btn" id="rightButton" type="button" aria-label="向右移動">→</button>
+        </footer>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
