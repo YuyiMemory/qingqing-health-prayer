@@ -3,65 +3,65 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>晴晴的蓮花祈福</title>
+    <title>晴晴的健康祈福</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <main class="prayer-app" id="prayerApp" aria-label="為媽媽祈求身體健康的蓮花祈福遊戲">
+    <main class="prayer-app" id="prayerApp" aria-label="為媽媽祈求身體健康的祈福遊戲">
       <section class="prayer-card">
         <header class="header">
           <h1>為媽媽祈求身體健康</h1>
         </header>
 
-        <section class="lotus-stage" aria-live="polite">
+        <section class="blessing-stage" aria-live="polite">
           <div class="halo halo-back"></div>
-          <div class="lotus" id="lotus" data-step="0" aria-label="祈願蓮花">
-            <svg class="lotus-svg" viewBox="0 0 260 240" role="img" aria-hidden="true">
+          <div class="monk" id="lotus" data-step="0" aria-label="合掌祈福的小和尚">
+            <svg class="monk-svg" viewBox="0 0 260 260" role="img" aria-hidden="true">
               <defs>
-                <radialGradient id="lotusGlow" cx="50%" cy="42%" r="54%">
-                  <stop offset="0%" stop-color="#fff9ca" />
-                  <stop offset="46%" stop-color="#ffd86f" stop-opacity="0.86" />
-                  <stop offset="100%" stop-color="#ffd86f" stop-opacity="0" />
+                <radialGradient id="monkGlow" cx="50%" cy="40%" r="58%">
+                  <stop offset="0%" stop-color="#fff8bf" stop-opacity="0.95" />
+                  <stop offset="48%" stop-color="#f0c96a" stop-opacity="0.36" />
+                  <stop offset="100%" stop-color="#f0c96a" stop-opacity="0" />
                 </radialGradient>
-                <linearGradient id="lotusLine" x1="0" x2="1" y1="0" y2="1">
-                  <stop offset="0%" stop-color="#f6a4bc" />
-                  <stop offset="48%" stop-color="#d95f86" />
-                  <stop offset="100%" stop-color="#8cc5ad" />
+                <linearGradient id="robe" x1="0" x2="0" y1="0" y2="1">
+                  <stop offset="0%" stop-color="#f0c96a" />
+                  <stop offset="100%" stop-color="#d98a4a" />
                 </linearGradient>
-                <linearGradient id="lotusTrace" x1="0" x2="1" y1="0" y2="0">
-                  <stop offset="0%" stop-color="#f4d16f" />
-                  <stop offset="52%" stop-color="#fff9ca" />
-                  <stop offset="100%" stop-color="#f6a4bc" />
+                <linearGradient id="skin" x1="0" x2="0" y1="0" y2="1">
+                  <stop offset="0%" stop-color="#ffe0bb" />
+                  <stop offset="100%" stop-color="#f2b987" />
                 </linearGradient>
-                <filter id="dotGlow" x="-80%" y="-80%" width="260%" height="260%">
-                  <feGaussianBlur stdDeviation="3.4" result="blur" />
+                <filter id="softGlow" x="-60%" y="-60%" width="220%" height="220%">
+                  <feGaussianBlur stdDeviation="4" result="blur" />
                   <feMerge>
                     <feMergeNode in="blur" />
                     <feMergeNode in="SourceGraphic" />
                   </feMerge>
                 </filter>
               </defs>
-              <ellipse class="svg-shadow" cx="130" cy="212" rx="92" ry="16" />
-              <circle class="svg-heart" cx="130" cy="122" r="50" fill="url(#lotusGlow)" />
-              <g class="function-lotus">
-                <path
-                  id="orbitPath"
-                  class="orbit-path"
-                  d="M130 31C166 70 193 118 224 91C214 145 181 179 130 190C79 179 46 145 36 91C67 118 94 70 130 31Z"
-                />
-                <path class="lotus-line line-orbit" d="M130 31C166 70 193 118 224 91C214 145 181 179 130 190C79 179 46 145 36 91C67 118 94 70 130 31Z" />
-                <path class="lotus-line line-center" d="M130 31C111 79 105 132 130 190C155 132 149 79 130 31Z" />
-                <path class="lotus-line line-left-mid" d="M130 190C91 151 70 94 84 52C122 84 139 128 130 190Z" />
-                <path class="lotus-line line-right-mid" d="M130 190C169 151 190 94 176 52C138 84 121 128 130 190Z" />
-                <path class="lotus-line line-left-outer" d="M130 190C86 180 50 143 34 92C83 98 124 133 130 190Z" />
-                <path class="lotus-line line-right-outer" d="M130 190C174 180 210 143 226 92C177 98 136 133 130 190Z" />
-                <path class="lotus-line line-cup" d="M62 178C88 205 113 217 130 217C147 217 172 205 198 178C166 190 146 194 130 194C114 194 94 190 62 178Z" />
-                <path class="lotus-line line-water" d="M45 216C82 229 178 229 215 216" />
-                <circle class="orbit-dot" r="5.5" filter="url(#dotGlow)">
-                  <animateMotion dur="5.6s" repeatCount="indefinite" rotate="auto">
-                    <mpath href="#orbitPath" />
-                  </animateMotion>
-                </circle>
+              <ellipse class="monk-shadow" cx="130" cy="229" rx="82" ry="15" />
+              <circle class="monk-aura" cx="130" cy="93" r="86" fill="url(#monkGlow)" />
+              <g class="aura-lines">
+                <circle cx="130" cy="92" r="62" />
+                <circle cx="130" cy="92" r="82" />
+                <path d="M130 1V22M130 164V185M221 92H242M18 92H39M194 28L180 43M66 28L80 43M194 156L180 141M66 156L80 141" />
+              </g>
+              <g class="monk-body">
+                <path class="robe-back" d="M72 225C78 172 98 135 130 135C162 135 182 172 188 225Z" />
+                <path class="robe-fold" d="M88 218C99 180 111 154 130 141C149 154 161 180 172 218Z" />
+                <path class="robe-sash" d="M104 148C114 180 139 199 179 206C175 187 165 163 151 146C134 151 120 151 104 148Z" />
+                <circle class="head" cx="130" cy="90" r="52" />
+                <path class="ear ear-left" d="M80 91C68 91 66 112 82 116" />
+                <path class="ear ear-right" d="M180 91C192 91 194 112 178 116" />
+                <path class="brow" d="M101 85C110 80 119 80 126 86M134 86C141 80 150 80 159 85" />
+                <path class="eye" d="M101 101C111 108 121 108 128 101M132 101C139 108 149 108 159 101" />
+                <path class="smile" d="M113 121C124 130 137 130 148 121" />
+                <path class="hand hand-left" d="M111 145C99 153 95 171 108 181C119 173 124 160 123 146Z" />
+                <path class="hand hand-right" d="M149 145C161 153 165 171 152 181C141 173 136 160 137 146Z" />
+                <path class="palm-line" d="M123 148C128 158 128 169 123 180M137 148C132 158 132 169 137 180" />
+                <circle class="prayer-bead bead-one" cx="86" cy="142" r="5" />
+                <circle class="prayer-bead bead-two" cx="174" cy="142" r="5" />
+                <circle class="prayer-bead bead-three" cx="130" cy="46" r="5" />
               </g>
             </svg>
           </div>
@@ -80,7 +80,7 @@
         </section>
 
         <section class="blessing-card" id="blessingCard" hidden>
-          <p class="blessing-title" id="blessingTitle">蓮花已開，祝福已至</p>
+          <p class="blessing-title" id="blessingTitle">小和尚送來祝福</p>
           <p class="blessing-text" id="blessingText"></p>
         </section>
       </section>

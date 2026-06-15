@@ -75,7 +75,7 @@ h1 {
   white-space: nowrap;
 }
 
-.lotus-stage {
+.blessing-stage {
   position: relative;
   display: grid;
   place-items: center;
@@ -104,146 +104,159 @@ h1 {
   transition: transform 420ms ease, opacity 420ms ease;
 }
 
-.lotus {
+.monk {
   position: relative;
   z-index: 2;
-  width: min(285px, 78vw);
-  aspect-ratio: 260 / 240;
+  width: min(292px, 78vw);
+  aspect-ratio: 1;
   transform: translateY(18px);
 }
 
-.lotus-svg {
+.monk-svg {
   width: 100%;
   height: 100%;
   overflow: visible;
 }
 
-.svg-shadow {
+.monk-shadow {
   fill: rgba(66, 116, 125, 0.18);
 }
 
-.svg-heart {
-  opacity: 0;
-  transform: scale(0.45);
+.monk-aura {
+  opacity: 0.24;
+  transform: scale(0.72);
   transform-box: fill-box;
   transform-origin: center;
   transition: opacity 520ms ease, transform 560ms ease;
 }
 
-.function-lotus {
+.aura-lines {
   fill: none;
+  stroke: rgba(240, 201, 106, 0.72);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 520;
+  stroke-dashoffset: 520;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: stroke-dashoffset 680ms ease, opacity 520ms ease, transform 560ms ease;
+}
+
+.monk-body {
+  filter: drop-shadow(0 12px 18px rgba(81, 99, 123, 0.16));
+}
+
+.robe-back {
+  fill: url(#robe);
+  stroke: rgba(128, 82, 42, 0.16);
+  stroke-width: 2;
+}
+
+.robe-fold {
+  fill: #f5d178;
+  opacity: 0.9;
+}
+
+.robe-sash {
+  fill: #d9894a;
+  opacity: 0.72;
+}
+
+.head,
+.hand {
+  fill: url(#skin);
+  stroke: rgba(120, 78, 49, 0.18);
+  stroke-width: 2;
+}
+
+.ear {
+  fill: none;
+  stroke: rgba(120, 78, 49, 0.22);
+  stroke-width: 6;
+  stroke-linecap: round;
+}
+
+.brow,
+.eye,
+.smile,
+.palm-line {
+  fill: none;
+  stroke: #694635;
+  stroke-width: 4;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 
-.orbit-path {
-  fill: none;
-  stroke: none;
-}
-
-.lotus-line {
-  fill: none;
-  stroke: url(#lotusLine);
-  stroke-width: 3.1;
-  stroke-dasharray: 560;
-  stroke-dashoffset: 360;
-  opacity: 0.42;
-  filter: drop-shadow(0 7px 10px rgba(196, 82, 121, 0.13));
-  transition:
-    stroke-dashoffset 760ms cubic-bezier(0.2, 0.8, 0.16, 1),
-    opacity 520ms ease,
-    stroke-width 520ms ease,
-    filter 520ms ease;
-}
-
-.line-orbit {
-  stroke-width: 3.6;
-  opacity: 0.54;
-}
-
-.line-center,
-.line-left-mid,
-.line-right-mid {
-  stroke-dashoffset: 440;
-}
-
-.line-left-outer,
-.line-right-outer {
-  stroke-dashoffset: 500;
-}
-
-.line-cup,
-.line-water {
-  stroke: rgba(78, 152, 115, 0.62);
-  stroke-width: 2.7;
-  stroke-dashoffset: 280;
-}
-
-.line-water {
+.brow {
   opacity: 0.34;
+  stroke-width: 3;
 }
 
-.orbit-dot {
+.smile {
+  stroke-width: 3.5;
+}
+
+.hand-left,
+.hand-right {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  transition: transform 420ms ease;
+}
+
+.prayer-bead {
   fill: #fff6bb;
   stroke: #f0c96a;
   stroke-width: 2;
-  opacity: 0.88;
+  opacity: 0;
+  transform: scale(0.3);
+  transform-box: fill-box;
+  transform-origin: center;
+  filter: url(#softGlow);
+  transition: opacity 340ms ease, transform 340ms ease;
 }
 
-.lotus[data-step="1"] .lotus-line {
-  stroke-dashoffset: 240;
-  opacity: 0.62;
-}
-
-.lotus[data-step="1"] .line-center,
-.lotus[data-step="1"] .line-left-mid,
-.lotus[data-step="1"] .line-right-mid {
-  stroke-dashoffset: 290;
-}
-
-.lotus[data-step="2"] .lotus-line {
-  stroke-dashoffset: 110;
-  opacity: 0.78;
-}
-
-.lotus[data-step="2"] .line-center,
-.lotus[data-step="2"] .line-left-mid,
-.lotus[data-step="2"] .line-right-mid,
-.lotus[data-step="2"] .line-left-outer,
-.lotus[data-step="2"] .line-right-outer {
-  stroke-dashoffset: 150;
-}
-
-.lotus[data-step="2"] .line-cup,
-.lotus[data-step="2"] .line-water {
-  stroke-dashoffset: 100;
-}
-
-.lotus[data-step="3"] .svg-heart {
+.monk[data-step="1"] .bead-one,
+.monk[data-step="2"] .bead-one,
+.monk[data-step="2"] .bead-two,
+.monk[data-step="3"] .prayer-bead {
   opacity: 1;
   transform: scale(1);
 }
 
-.lotus[data-step="3"] .lotus-line {
-  stroke-dashoffset: 0;
+.monk[data-step="1"] .monk-aura {
+  opacity: 0.36;
+  transform: scale(0.82);
+}
+
+.monk[data-step="2"] .monk-aura {
+  opacity: 0.5;
+  transform: scale(0.95);
+}
+
+.monk[data-step="3"] .monk-aura {
+  opacity: 0.82;
+  transform: scale(1.1);
+}
+
+.monk[data-step="2"] .aura-lines {
+  opacity: 0.58;
+  stroke-dashoffset: 190;
+}
+
+.monk[data-step="3"] .aura-lines {
   opacity: 1;
-  stroke-width: 3.4;
-  filter: drop-shadow(0 0 10px rgba(240, 201, 106, 0.4));
-}
-
-.lotus[data-step="3"] .line-orbit {
-  stroke-width: 4.2;
-}
-
-.lotus[data-step="3"] .line-cup,
-.lotus[data-step="3"] .line-water {
   stroke-dashoffset: 0;
-  opacity: 0.86;
+  transform: scale(1.04);
 }
 
-.lotus[data-step="3"] .orbit-dot {
-  opacity: 1;
-  filter: drop-shadow(0 0 10px rgba(255, 246, 187, 0.95));
+.monk[data-step="1"] .hand-left,
+.monk[data-step="1"] .hand-right,
+.monk[data-step="2"] .hand-left,
+.monk[data-step="2"] .hand-right,
+.monk[data-step="3"] .hand-left,
+.monk[data-step="3"] .hand-right {
+  transform: translateY(-3px);
 }
 
 .prayer-app.step-1 .halo {
@@ -388,11 +401,11 @@ h1 {
     padding-top: 18px;
   }
 
-  .lotus-stage {
+  .blessing-stage {
     min-height: 254px;
   }
 
-  .lotus {
+  .monk {
     transform: translateY(22px) scale(0.78);
   }
 

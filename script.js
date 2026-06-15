@@ -1,5 +1,5 @@
 const app = document.querySelector("#prayerApp");
-const lotus = document.querySelector("#lotus");
+const prayerFigure = document.querySelector("#lotus");
 const stepText = document.querySelector("#stepText");
 const counterText = document.querySelector("#counterText");
 const blessingCard = document.querySelector("#blessingCard");
@@ -76,7 +76,7 @@ const blessings = [
   "願媽媽身邊的人都能給她安心。",
   "願媽媽不舒服時很快得到緩解。",
   "願媽媽的身體把營養好好吸收。",
-  "願媽媽的元氣像蓮花一樣慢慢舒展。",
+  "願媽媽的元氣在祝福中慢慢舒展。",
   "願媽媽的每一次復診都更安心。",
   "願媽媽的身體少受折磨，多得修復。",
   "願媽媽今天能睡一場真正舒服的覺。",
@@ -110,7 +110,7 @@ const blessings = [
   "願媽媽的身體恢復節奏，穩穩向好。",
   "願媽媽今天的狀態比昨天更穩。",
   "願媽媽少一些焦慮，多一些休息。",
-  "願媽媽在蓮花祝福中慢慢康復。",
+  "願媽媽在小和尚的祝福中慢慢康復。",
   "願媽媽的每一次治療都帶來希望。",
   "願媽媽的身體重新找回平衡。",
   "願媽媽的精神和氣色都逐漸變好。",
@@ -140,7 +140,7 @@ function saveUsedIndexes() {
 
 function setStep(nextStep) {
   step = nextStep;
-  lotus.dataset.step = String(step);
+  prayerFigure.dataset.step = String(step);
   app.classList.remove("step-0", "step-1", "step-2", "step-3");
   app.classList.add(`step-${step}`);
   lamps.forEach((lamp, index) => lamp.classList.toggle("is-lit", index < step));
@@ -194,7 +194,7 @@ function completePrayer() {
   setStep(3);
   updateCounter();
 
-  blessingTitle.textContent = "蓮花已開，祝福已至";
+  blessingTitle.textContent = "小和尚送來祝福";
   blessingText.textContent = blessing;
 
   blessingCard.hidden = false;
