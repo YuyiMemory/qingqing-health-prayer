@@ -325,12 +325,27 @@ h1 {
 }
 
 .blessing-card {
+  display: grid;
+  align-content: center;
+  min-height: 154px;
   padding: 16px;
   border: 1px solid rgba(216, 95, 131, 0.24);
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.72);
   box-shadow: 0 14px 34px rgba(81, 99, 123, 0.13);
   text-align: center;
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition: opacity 220ms ease, transform 220ms ease, visibility 220ms ease;
+}
+
+.blessing-card[hidden] {
+  display: grid;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  pointer-events: none;
 }
 
 .blessing-title {
@@ -345,6 +360,8 @@ h1 {
   font-size: 1.12rem;
   font-weight: 800;
   line-height: 1.65;
+  max-height: 4.95em;
+  overflow: auto;
 }
 
 .float-word {
@@ -415,5 +432,14 @@ h1 {
 
   .water-ring {
     bottom: 24px;
+  }
+
+  .blessing-card {
+    min-height: 132px;
+    padding: 12px;
+  }
+
+  .blessing-text {
+    font-size: 1rem;
   }
 }
