@@ -1,378 +1,257 @@
-const canvas = document.querySelector("#gameCanvas");
-const ctx = canvas.getContext("2d");
-const scoreEl = document.querySelector("#score");
-const flowersEl = document.querySelector("#flowers");
-const timerEl = document.querySelector("#timer");
-const messageCard = document.querySelector("#messageCard");
-const messageText = document.querySelector("#messageText");
-const startButton = document.querySelector("#startButton");
-const leftButton = document.querySelector("#leftButton");
-const rightButton = document.querySelector("#rightButton");
-const blessButton = document.querySelector("#blessButton");
+const app = document.querySelector("#prayerApp");
+const lotus = document.querySelector("#lotus");
+const stepText = document.querySelector("#stepText");
+const counterText = document.querySelector("#counterText");
+const blessingCard = document.querySelector("#blessingCard");
+const blessingTitle = document.querySelector("#blessingTitle");
+const blessingText = document.querySelector("#blessingText");
+const againButton = document.querySelector("#againButton");
+const resetButton = document.querySelector("#resetButton");
+const lamps = [...document.querySelectorAll(".lamp")];
 
-const W = canvas.width;
-const H = canvas.height;
-const keys = new Set();
-const wishes = [
-  "願媽媽今天比昨天舒服一點，身體慢慢恢復力氣。",
-  "願每一次治療都順利，每一個夜晚都睡得安穩。",
-  "願晴晴的愛像小燈一樣，陪媽媽走過這段時間。",
-  "願疼痛少一些，胃口好一些，心裡也亮一些。",
-  "願平安、健康、溫柔的好消息，一點一點靠近媽媽。"
+const STORAGE_KEY = "qingqing-lotus-health-blessings-v1";
+const stepWords = ["願病痛減輕", "願身心安穩", "願健康歸來"];
+
+const blessings = [
+  "願媽媽今日身體舒緩，疼痛慢慢減輕。",
+  "願媽媽今晚睡得安穩，醒來時多一分力氣。",
+  "願媽媽胃口漸開，吃下的每一口都化成元氣。",
+  "願媽媽呼吸順暢，心裡也跟著安定。",
+  "願媽媽治療順利，身體一步一步恢復。",
+  "願媽媽精神漸好，眼神一天比一天明亮。",
+  "願媽媽病痛遠離，平安常在身邊。",
+  "願媽媽每一次檢查都有安心的結果。",
+  "願媽媽身體的疲累慢慢散去。",
+  "願媽媽被溫柔照顧，也被健康守護。",
+  "願媽媽的免疫力穩穩提升。",
+  "願媽媽的傷口與不適都順利復原。",
+  "願媽媽每個夜晚都少些難受，多些安眠。",
+  "願媽媽今天多喝一口水，多添一點力量。",
+  "願媽媽的心跳平穩，心情也平穩。",
+  "願媽媽的身體記得如何康復。",
+  "願媽媽遠離疼痛，靠近舒適。",
+  "願媽媽所有藥物與治療都發揮好的幫助。",
+  "願媽媽的體力像晨光一樣慢慢回來。",
+  "願媽媽每一天都比前一天更輕鬆。",
+  "願媽媽睡眠深沉，身體好好修復。",
+  "願媽媽頭腦清明，身心不再沉重。",
+  "願媽媽的食慾回來，笑容也回來。",
+  "願媽媽少受病苦，多得平安。",
+  "願媽媽在家人的陪伴裡安心養病。",
+  "願媽媽的身體細胞都朝健康前進。",
+  "願媽媽的不舒服一點一點消退。",
+  "願媽媽今天能感覺到明顯的好轉。",
+  "願媽媽保持穩定，慢慢走向康復。",
+  "願媽媽每一次休息都真正補回力氣。",
+  "願媽媽的血氣順暢，身體溫暖。",
+  "願媽媽的精神被祝福扶起來。",
+  "願媽媽心中少些擔憂，多些安穩。",
+  "願媽媽所有指數都朝好的方向變化。",
+  "願媽媽的病灶逐漸縮小，健康逐漸擴大。",
+  "願媽媽有好胃口、好睡眠、好精神。",
+  "願媽媽在疼痛時有人陪，在害怕時有人抱。",
+  "願媽媽今日平安，明日更好。",
+  "願媽媽身體慢慢變輕，心也慢慢變亮。",
+  "願媽媽的恢復路上常有好消息。",
+  "願媽媽的每一次呼吸都帶來平靜。",
+  "願媽媽身體裡的力量重新聚回來。",
+  "願媽媽病中仍被愛包圍，被平安照顧。",
+  "願媽媽的血液、骨骼、肌肉都得到滋養。",
+  "願媽媽少一些藥後不適，多一些治療成效。",
+  "願媽媽的白天有精神，夜晚能好眠。",
+  "願媽媽的疼痛降下來，笑容升起來。",
+  "願媽媽恢復順利，少走辛苦的路。",
+  "願媽媽今日有胃口，身體有力量。",
+  "願媽媽的身體被柔和的光守護。",
+  "願媽媽每個細小好轉都被看見。",
+  "願媽媽的心情穩住，身體跟著穩住。",
+  "願媽媽不再那麼疲倦，能慢慢坐起、走動、微笑。",
+  "願媽媽的治療安排都有好緣分。",
+  "願媽媽的醫護照顧細心順利。",
+  "願媽媽每一份不安都被平安取代。",
+  "願媽媽病痛如雲散去，健康如花開來。",
+  "願媽媽的身體多一分修復，少一分負擔。",
+  "願媽媽體溫平穩，睡醒舒服。",
+  "願媽媽今天能感到一點輕鬆。",
+  "願媽媽的心裡有盼望，身體有力量。",
+  "願媽媽的康復速度穩定而踏實。",
+  "願媽媽身邊的人都能給她安心。",
+  "願媽媽不舒服時很快得到緩解。",
+  "願媽媽的身體把營養好好吸收。",
+  "願媽媽的元氣像蓮花一樣慢慢舒展。",
+  "願媽媽的每一次復診都更安心。",
+  "願媽媽的身體少受折磨，多得修復。",
+  "願媽媽今天能睡一場真正舒服的覺。",
+  "願媽媽體力回升，步伐穩當。",
+  "願媽媽的眼淚變少，安心變多。",
+  "願媽媽在治療中保持勇氣與平靜。",
+  "願媽媽的身體聽見祝福，慢慢好起來。",
+  "願媽媽每一口飯都帶來恢復的力量。",
+  "願媽媽每一杯水都滋潤身體。",
+  "願媽媽的藥效順利，副作用減輕。",
+  "願媽媽被好醫生、好方法、好時機守護。",
+  "願媽媽身體不再緊繃，能慢慢放鬆。",
+  "願媽媽今日少痛一點，多笑一點。",
+  "願媽媽心安，身安，日日平安。",
+  "願媽媽的內臟功能穩定運作。",
+  "願媽媽的血壓、脈搏與呼吸都安穩。",
+  "願媽媽的身體像春天一樣慢慢復甦。",
+  "願媽媽在每個早晨醒來時都多些希望。",
+  "願媽媽康復路上不孤單。",
+  "願媽媽的疲憊被睡眠帶走。",
+  "願媽媽身體中的發炎與不適逐漸平息。",
+  "願媽媽有足夠的力氣面對今天。",
+  "願媽媽的身體收到滿滿善意與祝福。",
+  "願媽媽每一天都離健康更近。",
+  "願媽媽的心神安定，病苦減輕。",
+  "願媽媽吃得下、睡得著、笑得出來。",
+  "願媽媽的康復有光，也有家人的手。",
+  "願媽媽的身體順利排出疲累與病氣。",
+  "願媽媽所有不舒服都有緩和的方法。",
+  "願媽媽被平安圍繞，被健康牽引。",
+  "願媽媽的身體恢復節奏，穩穩向好。",
+  "願媽媽今天的狀態比昨天更穩。",
+  "願媽媽少一些焦慮，多一些休息。",
+  "願媽媽在蓮花祝福中慢慢康復。",
+  "願媽媽的每一次治療都帶來希望。",
+  "願媽媽的身體重新找回平衡。",
+  "願媽媽的精神和氣色都逐漸變好。",
+  "願媽媽疼痛退散，舒適停留。",
+  "願媽媽被慈悲照看，被健康擁抱。",
+  "願媽媽從今天開始，一日一日更加安穩。",
+  "願媽媽長長久久平安，身體慢慢健康。",
+  "願 108 份祝福化作光，陪媽媽走向康復。"
 ];
 
-let player;
-let drops;
-let clouds;
-let flowers;
-let particles;
-let score;
-let seconds;
-let running;
-let lastTime;
-let spawnTimer;
-let cloudTimer;
-let rafId;
+let step = 0;
+let usedIndexes = loadUsedIndexes();
+let isComplete = false;
 
-function resetGame() {
-  player = {
-    x: W / 2,
-    y: H - 72,
-    vx: 0,
-    radius: 22,
-    glow: 0
-  };
-  drops = [];
-  clouds = [];
-  flowers = [];
-  particles = [];
-  score = 0;
-  seconds = 45;
-  running = false;
-  lastTime = 0;
-  spawnTimer = 0;
-  cloudTimer = 0;
-  updateHud();
-}
-
-function updateHud() {
-  scoreEl.textContent = score;
-  flowersEl.textContent = flowers.length;
-  timerEl.textContent = Math.max(0, Math.ceil(seconds));
-}
-
-function startGame() {
-  resetGame();
-  running = true;
-  messageCard.classList.add("hidden");
-  lastTime = performance.now();
-  cancelAnimationFrame(rafId);
-  rafId = requestAnimationFrame(loop);
-}
-
-function endGame() {
-  running = false;
-  const wish = wishes[Math.min(wishes.length - 1, Math.floor(score / 8))];
-  messageText.textContent = score >= 28
-    ? `祈願完成。${wish}`
-    : `收集到 ${score} 顆祝福露珠。${wish}`;
-  startButton.textContent = "再祈願一次";
-  messageCard.classList.remove("hidden");
-}
-
-function spawnDrop() {
-  drops.push({
-    x: 30 + Math.random() * (W - 60),
-    y: -20,
-    r: 10 + Math.random() * 7,
-    vy: 95 + Math.random() * 80,
-    sway: Math.random() * Math.PI * 2,
-    kind: Math.random() > 0.78 ? "gold" : "blue"
-  });
-}
-
-function spawnCloud() {
-  clouds.push({
-    x: 40 + Math.random() * (W - 80),
-    y: -34,
-    w: 58 + Math.random() * 36,
-    h: 26 + Math.random() * 14,
-    vy: 70 + Math.random() * 54
-  });
-}
-
-function plantFlower(x) {
-  flowers.push({
-    x,
-    y: H - 34 - Math.random() * 18,
-    size: 0,
-    target: 18 + Math.random() * 14,
-    hue: Math.random() > 0.5 ? "#ef7c8e" : "#f5bd4f"
-  });
-}
-
-function burst(x, y, color) {
-  for (let i = 0; i < 14; i += 1) {
-    particles.push({
-      x,
-      y,
-      vx: Math.cos((Math.PI * 2 * i) / 14) * (60 + Math.random() * 45),
-      vy: Math.sin((Math.PI * 2 * i) / 14) * (60 + Math.random() * 45),
-      life: 0.65,
-      color
-    });
+function loadUsedIndexes() {
+  try {
+    const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+    return Array.isArray(stored) ? stored.filter((item) => Number.isInteger(item)) : [];
+  } catch {
+    return [];
   }
 }
 
-function sendBlessing() {
-  if (!running) return;
-  score += 1;
-  player.glow = 1;
-  plantFlower(player.x);
-  burst(player.x, player.y - 12, "#f5bd4f");
-  updateHud();
+function saveUsedIndexes() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(usedIndexes));
 }
 
-function update(dt) {
-  seconds -= dt;
-  if (seconds <= 0) {
-    seconds = 0;
-    updateHud();
-    endGame();
+function setStep(nextStep) {
+  step = nextStep;
+  lotus.dataset.step = String(step);
+  app.classList.remove("step-0", "step-1", "step-2", "step-3");
+  app.classList.add(`step-${step}`);
+  lamps.forEach((lamp, index) => lamp.classList.toggle("is-lit", index < step));
+}
+
+function updateCounter() {
+  counterText.textContent = `已收到 ${usedIndexes.length} / ${blessings.length} 份祝福`;
+}
+
+function getNextBlessing() {
+  if (usedIndexes.length >= blessings.length) return null;
+  const remaining = blessings
+    .map((_, index) => index)
+    .filter((index) => !usedIndexes.includes(index));
+  const index = remaining[Math.floor(Math.random() * remaining.length)];
+  usedIndexes.push(index);
+  saveUsedIndexes();
+  return blessings[index];
+}
+
+function showFloatingWord(text, x, y) {
+  const word = document.createElement("span");
+  word.className = "float-word";
+  word.textContent = text;
+  word.style.left = `${x}px`;
+  word.style.top = `${y}px`;
+  document.body.append(word);
+  word.addEventListener("animationend", () => word.remove(), { once: true });
+}
+
+function showSparks(x, y) {
+  for (let i = 0; i < 14; i += 1) {
+    const spark = document.createElement("span");
+    const angle = (Math.PI * 2 * i) / 14;
+    const distance = 46 + Math.random() * 46;
+    spark.className = "spark";
+    spark.style.left = `${x}px`;
+    spark.style.top = `${y}px`;
+    spark.style.setProperty("--tx", `${Math.cos(angle) * distance}px`);
+    spark.style.setProperty("--ty", `${Math.sin(angle) * distance}px`);
+    document.body.append(spark);
+    spark.addEventListener("animationend", () => spark.remove(), { once: true });
+  }
+}
+
+function completePrayer() {
+  const blessing = getNextBlessing();
+  isComplete = true;
+  setStep(3);
+  updateCounter();
+
+  if (blessing) {
+    blessingTitle.textContent = "蓮花已開，祝福已至";
+    blessingText.textContent = blessing;
+    againButton.textContent = "再祈願一次";
+  } else {
+    blessingTitle.textContent = "108 份祝福已圓滿";
+    blessingText.textContent = "願平安長久相伴，願媽媽身體一日比一日安穩。";
+    againButton.textContent = "重新開始 108 祝福";
+  }
+
+  blessingCard.hidden = false;
+}
+
+function handlePrayer(event) {
+  const target = event.target;
+  if (target.closest("button")) return;
+
+  const x = event.clientX || window.innerWidth / 2;
+  const y = event.clientY || window.innerHeight / 2;
+
+  if (isComplete) return;
+
+  const nextStep = Math.min(3, step + 1);
+  setStep(nextStep);
+  stepText.textContent = stepWords[nextStep - 1];
+  showFloatingWord(stepWords[nextStep - 1], x, y);
+  showSparks(x, y);
+
+  if (nextStep === 3) {
+    completePrayer();
+  }
+}
+
+function startAnotherPrayer() {
+  if (usedIndexes.length >= blessings.length) {
+    resetAllBlessings();
     return;
   }
 
-  const left = keys.has("ArrowLeft") || keys.has("a") || keys.has("A");
-  const right = keys.has("ArrowRight") || keys.has("d") || keys.has("D");
-  player.vx = (right ? 1 : 0) - (left ? 1 : 0);
-  player.x += player.vx * 360 * dt;
-  player.x = Math.max(28, Math.min(W - 28, player.x));
-  player.glow = Math.max(0, player.glow - dt * 1.5);
-
-  spawnTimer -= dt;
-  cloudTimer -= dt;
-  if (spawnTimer <= 0) {
-    spawnDrop();
-    spawnTimer = 0.34 + Math.random() * 0.28;
-  }
-  if (cloudTimer <= 0) {
-    spawnCloud();
-    cloudTimer = 1.2 + Math.random() * 1.15;
-  }
-
-  for (const drop of drops) {
-    drop.y += drop.vy * dt;
-    drop.sway += dt * 3;
-    drop.x += Math.sin(drop.sway) * 22 * dt;
-  }
-
-  for (const cloud of clouds) {
-    cloud.y += cloud.vy * dt;
-  }
-
-  drops = drops.filter((drop) => {
-    const dx = drop.x - player.x;
-    const dy = drop.y - player.y;
-    if (Math.hypot(dx, dy) < player.radius + drop.r) {
-      const value = drop.kind === "gold" ? 3 : 1;
-      score += value;
-      player.glow = 1;
-      burst(drop.x, drop.y, drop.kind === "gold" ? "#f5bd4f" : "#72a9d9");
-      if (score % 5 === 0 || drop.kind === "gold") plantFlower(drop.x);
-      updateHud();
-      return false;
-    }
-    return drop.y < H + 30;
-  });
-
-  clouds = clouds.filter((cloud) => {
-    const hit = Math.abs(cloud.x - player.x) < cloud.w * 0.45 && Math.abs(cloud.y - player.y) < 34;
-    if (hit) {
-      score = Math.max(0, score - 2);
-      player.glow = 0.2;
-      burst(player.x, player.y, "#9aa6ad");
-      updateHud();
-      return false;
-    }
-    return cloud.y < H + 40;
-  });
-
-  for (const flower of flowers) {
-    flower.size += (flower.target - flower.size) * Math.min(1, dt * 5);
-  }
-
-  particles = particles.filter((p) => {
-    p.life -= dt;
-    p.x += p.vx * dt;
-    p.y += p.vy * dt;
-    p.vy += 80 * dt;
-    return p.life > 0;
-  });
-
-  updateHud();
+  isComplete = false;
+  blessingCard.hidden = true;
+  stepText.textContent = "心中默念一句祝福，然後輕點螢幕";
+  setStep(0);
 }
 
-function drawSky() {
-  const gradient = ctx.createLinearGradient(0, 0, 0, H);
-  gradient.addColorStop(0, "#c9ecfb");
-  gradient.addColorStop(0.62, "#f8f5df");
-  gradient.addColorStop(1, "#a6d49c");
-  ctx.fillStyle = gradient;
-  ctx.fillRect(0, 0, W, H);
-
-  ctx.fillStyle = "rgba(255,255,255,0.72)";
-  drawCloud(155, 88, 86, 28);
-  drawCloud(738, 74, 112, 34);
-
-  ctx.fillStyle = "#77b16f";
-  ctx.beginPath();
-  ctx.moveTo(0, H - 88);
-  for (let x = 0; x <= W; x += 80) {
-    ctx.quadraticCurveTo(x + 40, H - 120 - Math.sin(x) * 8, x + 80, H - 88);
-  }
-  ctx.lineTo(W, H);
-  ctx.lineTo(0, H);
-  ctx.closePath();
-  ctx.fill();
+function resetAllBlessings() {
+  usedIndexes = [];
+  saveUsedIndexes();
+  isComplete = false;
+  blessingCard.hidden = true;
+  stepText.textContent = "心中默念一句祝福，然後輕點螢幕";
+  setStep(0);
+  updateCounter();
 }
 
-function drawCloud(x, y, w, h) {
-  ctx.beginPath();
-  ctx.ellipse(x, y, w * 0.3, h * 0.72, 0, 0, Math.PI * 2);
-  ctx.ellipse(x + w * 0.24, y + 2, w * 0.35, h * 0.65, 0, 0, Math.PI * 2);
-  ctx.ellipse(x - w * 0.25, y + 4, w * 0.32, h * 0.58, 0, 0, Math.PI * 2);
-  ctx.fill();
-}
+app.addEventListener("pointerup", handlePrayer);
+againButton.addEventListener("click", startAnotherPrayer);
+resetButton.addEventListener("click", resetAllBlessings);
 
-function drawFlower(flower) {
-  ctx.strokeStyle = "#3f7d52";
-  ctx.lineWidth = 3;
-  ctx.beginPath();
-  ctx.moveTo(flower.x, H - 18);
-  ctx.quadraticCurveTo(flower.x - 7, flower.y + 16, flower.x, flower.y);
-  ctx.stroke();
-
-  ctx.fillStyle = flower.hue;
-  for (let i = 0; i < 6; i += 1) {
-    const a = (Math.PI * 2 * i) / 6;
-    ctx.beginPath();
-    ctx.ellipse(
-      flower.x + Math.cos(a) * flower.size * 0.42,
-      flower.y + Math.sin(a) * flower.size * 0.42,
-      flower.size * 0.28,
-      flower.size * 0.48,
-      a,
-      0,
-      Math.PI * 2
-    );
-    ctx.fill();
-  }
-  ctx.fillStyle = "#ffe9a8";
-  ctx.beginPath();
-  ctx.arc(flower.x, flower.y, Math.max(2, flower.size * 0.22), 0, Math.PI * 2);
-  ctx.fill();
-}
-
-function drawDrop(drop) {
-  ctx.save();
-  ctx.translate(drop.x, drop.y);
-  ctx.fillStyle = drop.kind === "gold" ? "#f5bd4f" : "#72a9d9";
-  ctx.shadowColor = drop.kind === "gold" ? "#ffe09a" : "#bde7ff";
-  ctx.shadowBlur = 16;
-  ctx.beginPath();
-  ctx.moveTo(0, -drop.r * 1.25);
-  ctx.bezierCurveTo(drop.r, -drop.r * 0.2, drop.r * 0.75, drop.r, 0, drop.r);
-  ctx.bezierCurveTo(-drop.r * 0.75, drop.r, -drop.r, -drop.r * 0.2, 0, -drop.r * 1.25);
-  ctx.fill();
-  ctx.restore();
-}
-
-function drawPlayer() {
-  ctx.save();
-  ctx.translate(player.x, player.y);
-  const glowRadius = 35 + player.glow * 24;
-  const glow = ctx.createRadialGradient(0, 0, 8, 0, 0, glowRadius);
-  glow.addColorStop(0, "rgba(255, 231, 139, 0.95)");
-  glow.addColorStop(1, "rgba(255, 231, 139, 0)");
-  ctx.fillStyle = glow;
-  ctx.beginPath();
-  ctx.arc(0, 0, glowRadius, 0, Math.PI * 2);
-  ctx.fill();
-
-  ctx.fillStyle = "#ffe5a9";
-  ctx.strokeStyle = "#6e5931";
-  ctx.lineWidth = 3;
-  ctx.beginPath();
-  ctx.arc(0, 0, player.radius, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.stroke();
-
-  ctx.fillStyle = "#6e5931";
-  ctx.beginPath();
-  ctx.arc(-7, -4, 2.6, 0, Math.PI * 2);
-  ctx.arc(7, -4, 2.6, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.strokeStyle = "#6e5931";
-  ctx.lineWidth = 2;
-  ctx.beginPath();
-  ctx.arc(0, 4, 8, 0.18 * Math.PI, 0.82 * Math.PI);
-  ctx.stroke();
-  ctx.restore();
-}
-
-function draw() {
-  drawSky();
-  for (const flower of flowers) drawFlower(flower);
-  for (const drop of drops) drawDrop(drop);
-
-  ctx.fillStyle = "rgba(108, 121, 128, 0.72)";
-  for (const cloud of clouds) drawCloud(cloud.x, cloud.y, cloud.w, cloud.h);
-
-  drawPlayer();
-
-  for (const p of particles) {
-    ctx.globalAlpha = Math.max(0, p.life / 0.65);
-    ctx.fillStyle = p.color;
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, 3.2, 0, Math.PI * 2);
-    ctx.fill();
-  }
-  ctx.globalAlpha = 1;
-}
-
-function loop(now) {
-  const dt = Math.min(0.033, (now - lastTime) / 1000);
-  lastTime = now;
-  if (running) update(dt);
-  draw();
-  if (running) rafId = requestAnimationFrame(loop);
-}
-
-window.addEventListener("keydown", (event) => {
-  keys.add(event.key);
-  if (event.key === " " || event.key === "Enter") {
-    event.preventDefault();
-    sendBlessing();
-  }
-});
-
-window.addEventListener("keyup", (event) => keys.delete(event.key));
-startButton.addEventListener("click", startGame);
-blessButton.addEventListener("click", sendBlessing);
-
-leftButton.addEventListener("pointerdown", () => keys.add("ArrowLeft"));
-leftButton.addEventListener("pointerup", () => keys.delete("ArrowLeft"));
-leftButton.addEventListener("pointerleave", () => keys.delete("ArrowLeft"));
-rightButton.addEventListener("pointerdown", () => keys.add("ArrowRight"));
-rightButton.addEventListener("pointerup", () => keys.delete("ArrowRight"));
-rightButton.addEventListener("pointerleave", () => keys.delete("ArrowRight"));
-
-canvas.addEventListener("pointermove", (event) => {
-  if (!running) return;
-  const rect = canvas.getBoundingClientRect();
-  player.x = ((event.clientX - rect.left) / rect.width) * W;
-  player.x = Math.max(28, Math.min(W - 28, player.x));
-});
-
-resetGame();
-draw();
+setStep(0);
+updateCounter();

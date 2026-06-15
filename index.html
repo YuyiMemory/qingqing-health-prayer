@@ -3,46 +3,49 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>晴晴的健康祈願庭院</title>
+    <title>晴晴的蓮花祈福</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <main class="app" aria-label="晴晴的健康祈願庭院小遊戲">
-      <section class="game-shell">
-        <header class="topbar">
-          <div>
-            <p class="eyebrow">給媽媽的祝福</p>
-            <h1>晴晴的健康祈願庭院</h1>
-          </div>
-          <div class="status-panel" aria-live="polite">
-            <div>
-              <span>祝福露珠</span>
-              <strong id="score">0</strong>
-            </div>
-            <div>
-              <span>平安花</span>
-              <strong id="flowers">0</strong>
-            </div>
-            <div>
-              <span>時間</span>
-              <strong id="timer">45</strong>
-            </div>
-          </div>
+    <main class="prayer-app" id="prayerApp" aria-label="為媽媽祈求身體健康的蓮花祈福遊戲">
+      <section class="prayer-card">
+        <header class="header">
+          <p class="kicker">晴晴的心願</p>
+          <h1>為媽媽祈求身體健康</h1>
         </header>
 
-        <section class="play-area" id="playArea">
-          <canvas id="gameCanvas" width="960" height="540" aria-label="收集健康祝福的遊戲畫面"></canvas>
-          <div class="message-card" id="messageCard">
-            <p id="messageText">按下開始，把每一顆光都送給媽媽。</p>
-            <button id="startButton" type="button">開始祈願</button>
+        <section class="lotus-stage" aria-live="polite">
+          <div class="halo halo-back"></div>
+          <div class="lotus" id="lotus" data-step="0" aria-label="祈願蓮花">
+            <span class="petal petal-1"></span>
+            <span class="petal petal-2"></span>
+            <span class="petal petal-3"></span>
+            <span class="petal petal-4"></span>
+            <span class="petal petal-5"></span>
+            <span class="petal petal-6"></span>
+            <span class="heart-light"></span>
           </div>
+          <div class="water-ring"></div>
         </section>
 
-        <footer class="controls">
-          <button class="control-btn" id="leftButton" type="button" aria-label="向左移動">←</button>
-          <button class="control-btn primary" id="blessButton" type="button">送出祝福</button>
-          <button class="control-btn" id="rightButton" type="button" aria-label="向右移動">→</button>
-        </footer>
+        <section class="progress" aria-label="祈願進度">
+          <span class="lamp" data-lamp="0"></span>
+          <span class="lamp" data-lamp="1"></span>
+          <span class="lamp" data-lamp="2"></span>
+        </section>
+
+        <section class="words">
+          <p class="step-text" id="stepText">心中默念一句祝福，然後輕點螢幕</p>
+          <p class="counter" id="counterText">已收到 0 / 108 份祝福</p>
+        </section>
+
+        <section class="blessing-card" id="blessingCard" hidden>
+          <p class="blessing-title" id="blessingTitle">蓮花已開，祝福已至</p>
+          <p class="blessing-text" id="blessingText"></p>
+          <button class="action-button" id="againButton" type="button">再祈願一次</button>
+        </section>
+
+        <button class="reset-button" id="resetButton" type="button">重新開始 108 祝福</button>
       </section>
     </main>
 

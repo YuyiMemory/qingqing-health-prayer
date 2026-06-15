@@ -1,21 +1,26 @@
 :root {
-  --ink: #243037;
-  --muted: #65717a;
-  --paper: #fffdf8;
-  --line: rgba(36, 48, 55, 0.16);
-  --leaf: #5f946f;
-  --petal: #ef7c8e;
-  --sun: #f5bd4f;
-  --water: #72a9d9;
-  --shadow: 0 18px 50px rgba(49, 67, 77, 0.16);
+  --ink: #27323a;
+  --muted: #6b747c;
+  --paper: #fffaf4;
+  --line: rgba(39, 50, 58, 0.14);
+  --pink: #e98aa1;
+  --rose: #d85f83;
+  --gold: #f0c96a;
+  --leaf: #5d9b7a;
+  --sky: #dceffa;
+  --night: #51637b;
 }
 
 * {
   box-sizing: border-box;
 }
 
+html,
 body {
-  min-height: 100vh;
+  min-height: 100%;
+}
+
+body {
   margin: 0;
   color: var(--ink);
   font-family:
@@ -25,199 +30,391 @@ body {
     system-ui,
     sans-serif;
   background:
-    linear-gradient(180deg, rgba(114, 169, 217, 0.28), rgba(255, 253, 248, 0.92) 46%),
-    radial-gradient(circle at 14% 18%, rgba(245, 189, 79, 0.26), transparent 28%),
-    linear-gradient(135deg, #f7fbf3, #fff7f1 62%, #eef7fb);
+    linear-gradient(180deg, rgba(220, 239, 250, 0.9), rgba(255, 250, 244, 0.98) 48%, rgba(232, 246, 229, 0.9)),
+    radial-gradient(circle at 50% 18%, rgba(240, 201, 106, 0.28), transparent 34%);
 }
 
 button {
   font: inherit;
 }
 
-.app {
-  min-height: 100vh;
+.prayer-app {
+  min-height: 100svh;
   display: grid;
   place-items: center;
-  padding: 24px;
+  padding: 18px;
+  overflow: hidden;
+  cursor: pointer;
+  user-select: none;
 }
 
-.game-shell {
-  width: min(1120px, 100%);
+.prayer-card {
+  position: relative;
+  width: min(430px, 100%);
+  min-height: min(820px, calc(100svh - 36px));
+  display: grid;
+  grid-template-rows: auto minmax(260px, 1fr) auto auto auto auto;
+  gap: 16px;
+  padding: 26px 20px 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 250, 244, 0.78);
+  box-shadow: 0 22px 58px rgba(81, 99, 123, 0.18);
+  backdrop-filter: blur(14px);
 }
 
-.topbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: end;
-  gap: 18px;
-  margin-bottom: 14px;
+.header {
+  text-align: center;
 }
 
-.eyebrow {
-  margin: 0 0 5px;
+.kicker {
+  margin: 0 0 8px;
   color: var(--leaf);
   font-size: 0.9rem;
   font-weight: 800;
-  letter-spacing: 0;
 }
 
 h1 {
   margin: 0;
-  font-size: clamp(1.65rem, 3.8vw, 3.5rem);
-  line-height: 1.04;
+  font-size: clamp(1.75rem, 8vw, 2.7rem);
+  line-height: 1.12;
   letter-spacing: 0;
 }
 
-.status-panel {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(76px, 1fr));
-  gap: 8px;
-  min-width: min(440px, 100%);
-}
-
-.status-panel div {
-  min-height: 66px;
-  padding: 10px 12px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: rgba(255, 253, 248, 0.76);
-  box-shadow: 0 8px 24px rgba(49, 67, 77, 0.08);
-}
-
-.status-panel span {
-  display: block;
-  color: var(--muted);
-  font-size: 0.78rem;
-  font-weight: 700;
-}
-
-.status-panel strong {
-  display: block;
-  margin-top: 3px;
-  font-size: 1.55rem;
-  line-height: 1;
-}
-
-.play-area {
+.lotus-stage {
   position: relative;
-  overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: #dff2fa;
-  box-shadow: var(--shadow);
-  aspect-ratio: 16 / 9;
+  display: grid;
+  place-items: center;
+  min-height: 300px;
 }
 
-canvas {
-  display: block;
-  width: 100%;
-  height: 100%;
-  touch-action: none;
-}
-
-.message-card {
+.halo {
   position: absolute;
-  inset: auto 18px 18px 18px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 14px 16px;
-  border: 1px solid rgba(36, 48, 55, 0.14);
-  border-radius: 8px;
-  background: rgba(255, 253, 248, 0.9);
-  backdrop-filter: blur(12px);
+  width: 250px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 230, 154, 0.62), rgba(255, 230, 154, 0.18) 42%, transparent 70%);
+  opacity: 0.52;
+  transform: scale(0.82);
+  transition: opacity 500ms ease, transform 500ms ease;
 }
 
-.message-card.hidden {
-  pointer-events: none;
-  opacity: 0;
+.water-ring {
+  position: absolute;
+  bottom: 44px;
+  width: 230px;
+  height: 42px;
+  border: 2px solid rgba(100, 158, 180, 0.3);
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(255, 255, 255, 0.54), rgba(111, 180, 194, 0.18) 62%, transparent);
+  transition: transform 420ms ease, opacity 420ms ease;
+}
+
+.lotus {
+  position: relative;
+  z-index: 2;
+  width: 210px;
+  height: 210px;
   transform: translateY(12px);
-  transition: opacity 180ms ease, transform 180ms ease;
 }
 
-.message-card p {
+.petal,
+.heart-light {
+  position: absolute;
+  left: 50%;
+  bottom: 42px;
+  display: block;
+  transform-origin: 50% 100%;
+  transition: transform 560ms cubic-bezier(0.2, 0.8, 0.18, 1), opacity 420ms ease;
+}
+
+.petal {
+  width: 74px;
+  height: 126px;
+  margin-left: -37px;
+  border: 2px solid rgba(151, 65, 91, 0.2);
+  border-radius: 70% 70% 44% 44%;
+  background:
+    radial-gradient(circle at 50% 24%, rgba(255, 255, 255, 0.78), transparent 28%),
+    linear-gradient(180deg, #ffd2de, var(--pink) 68%, var(--rose));
+  box-shadow: inset 0 -18px 28px rgba(151, 65, 91, 0.12);
+}
+
+.petal-1 {
+  transform: rotate(0deg) translateY(16px) scale(0.92);
+}
+
+.petal-2 {
+  transform: rotate(-26deg) translateY(28px) scale(0.82);
+}
+
+.petal-3 {
+  transform: rotate(26deg) translateY(28px) scale(0.82);
+}
+
+.petal-4 {
+  transform: rotate(-52deg) translateY(46px) scale(0.72);
+  opacity: 0.9;
+}
+
+.petal-5 {
+  transform: rotate(52deg) translateY(46px) scale(0.72);
+  opacity: 0.9;
+}
+
+.petal-6 {
+  transform: rotate(0deg) translateY(62px) scale(0.74, 0.5);
+  background: linear-gradient(180deg, #ffe7b5, #f0c96a);
+}
+
+.heart-light {
+  width: 62px;
+  height: 62px;
+  margin-left: -31px;
+  bottom: 68px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff8c9, #ffd979 46%, rgba(255, 217, 121, 0));
+  opacity: 0;
+  transform: scale(0.35);
+}
+
+.lotus[data-step="1"] .petal-1 {
+  transform: rotate(0deg) translateY(2px) scale(1);
+}
+
+.lotus[data-step="1"] .petal-2 {
+  transform: rotate(-34deg) translateY(18px) scale(0.9);
+}
+
+.lotus[data-step="1"] .petal-3 {
+  transform: rotate(34deg) translateY(18px) scale(0.9);
+}
+
+.lotus[data-step="2"] .petal-1 {
+  transform: rotate(0deg) translateY(-6px) scale(1.04);
+}
+
+.lotus[data-step="2"] .petal-2 {
+  transform: rotate(-48deg) translateY(6px) scale(0.96);
+}
+
+.lotus[data-step="2"] .petal-3 {
+  transform: rotate(48deg) translateY(6px) scale(0.96);
+}
+
+.lotus[data-step="2"] .petal-4 {
+  transform: rotate(-72deg) translateY(20px) scale(0.86);
+}
+
+.lotus[data-step="2"] .petal-5 {
+  transform: rotate(72deg) translateY(20px) scale(0.86);
+}
+
+.lotus[data-step="3"] .petal-1 {
+  transform: rotate(0deg) translateY(-16px) scale(1.08);
+}
+
+.lotus[data-step="3"] .petal-2 {
+  transform: rotate(-62deg) translateY(-4px) scale(1);
+}
+
+.lotus[data-step="3"] .petal-3 {
+  transform: rotate(62deg) translateY(-4px) scale(1);
+}
+
+.lotus[data-step="3"] .petal-4 {
+  transform: rotate(-88deg) translateY(6px) scale(0.92);
+}
+
+.lotus[data-step="3"] .petal-5 {
+  transform: rotate(88deg) translateY(6px) scale(0.92);
+}
+
+.lotus[data-step="3"] .heart-light {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.prayer-app.step-1 .halo {
+  opacity: 0.68;
+  transform: scale(0.92);
+}
+
+.prayer-app.step-2 .halo {
+  opacity: 0.82;
+  transform: scale(1.04);
+}
+
+.prayer-app.step-3 .halo {
+  opacity: 1;
+  transform: scale(1.18);
+}
+
+.prayer-app.step-2 .water-ring,
+.prayer-app.step-3 .water-ring {
+  transform: scale(1.12);
+}
+
+.progress {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+}
+
+.lamp {
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(39, 50, 58, 0.16);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 34%, rgba(255, 255, 255, 0.92), transparent 24%),
+    linear-gradient(180deg, #fff, #e5edf0);
+  box-shadow: inset 0 -8px 16px rgba(81, 99, 123, 0.1);
+  transition: transform 260ms ease, background 260ms ease, box-shadow 260ms ease;
+}
+
+.lamp.is-lit {
+  background:
+    radial-gradient(circle at 50% 32%, #fff8c9, transparent 25%),
+    linear-gradient(180deg, #ffeeb5, var(--gold));
+  box-shadow: 0 0 22px rgba(240, 201, 106, 0.8), inset 0 -8px 14px rgba(163, 115, 37, 0.12);
+  transform: translateY(-3px);
+}
+
+.words {
+  min-height: 82px;
+  text-align: center;
+}
+
+.step-text {
   margin: 0;
-  color: #334049;
-  font-size: clamp(0.95rem, 2.2vw, 1.1rem);
-  font-weight: 700;
+  font-size: clamp(1.05rem, 4.7vw, 1.25rem);
+  font-weight: 900;
   line-height: 1.45;
 }
 
-#startButton,
-.control-btn {
-  min-height: 46px;
-  border: 1px solid rgba(36, 48, 55, 0.18);
+.counter {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.blessing-card {
+  padding: 16px;
+  border: 1px solid rgba(216, 95, 131, 0.24);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 14px 34px rgba(81, 99, 123, 0.13);
+  text-align: center;
+}
+
+.blessing-title {
+  margin: 0 0 8px;
+  color: var(--rose);
+  font-size: 1rem;
+  font-weight: 900;
+}
+
+.blessing-text {
+  margin: 0;
+  font-size: 1.12rem;
+  font-weight: 800;
+  line-height: 1.65;
+}
+
+.action-button,
+.reset-button {
+  min-height: 48px;
+  border: 1px solid rgba(39, 50, 58, 0.16);
   border-radius: 8px;
   color: var(--ink);
-  background: var(--paper);
-  box-shadow: 0 8px 18px rgba(49, 67, 77, 0.1);
   cursor: pointer;
 }
 
-#startButton {
-  flex: 0 0 auto;
-  padding: 0 18px;
-  font-weight: 900;
-  background: #ffe5a9;
-}
-
-.controls {
-  display: grid;
-  grid-template-columns: 72px minmax(140px, 220px) 72px;
-  justify-content: center;
-  gap: 10px;
+.action-button {
+  width: 100%;
   margin-top: 14px;
-}
-
-.control-btn {
-  padding: 0 14px;
-  font-size: 1.25rem;
+  background: #ffe8a8;
   font-weight: 900;
 }
 
-.control-btn.primary {
-  color: #173123;
-  background: #bfe6c8;
-  font-size: 1rem;
+.reset-button {
+  justify-self: center;
+  padding: 0 16px;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.48);
+  font-size: 0.86rem;
+  font-weight: 800;
 }
 
-.control-btn:active,
-#startButton:active {
-  transform: translateY(1px);
+.float-word {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  z-index: 10;
+  color: #c64e78;
+  font-weight: 900;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  animation: rise 900ms ease forwards;
 }
 
-@media (max-width: 760px) {
-  .app {
-    padding: 14px;
-  }
+.spark {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  z-index: 9;
+  border-radius: 50%;
+  background: var(--gold);
+  pointer-events: none;
+  animation: spark 780ms ease-out forwards;
+}
 
-  .topbar {
-    display: block;
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -20%) scale(0.9);
   }
-
-  .status-panel {
-    grid-template-columns: repeat(3, 1fr);
-    min-width: 0;
-    margin-top: 12px;
+  18% {
+    opacity: 1;
   }
-
-  .status-panel div {
-    min-height: 58px;
-    padding: 8px;
+  to {
+    opacity: 0;
+    transform: translate(-50%, -145%) scale(1.08);
   }
+}
 
-  .status-panel strong {
-    font-size: 1.25rem;
+@keyframes spark {
+  from {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
   }
+  to {
+    opacity: 0;
+    transform: translate(var(--tx), var(--ty)) scale(0.2);
+  }
+}
 
-  .message-card {
-    inset: auto 10px 10px 10px;
-    display: grid;
+@media (max-height: 720px) {
+  .prayer-card {
     gap: 10px;
+    padding-top: 18px;
   }
 
-  #startButton {
-    width: 100%;
+  .lotus-stage {
+    min-height: 238px;
+  }
+
+  .lotus {
+    transform: translateY(18px) scale(0.82);
+  }
+
+  .halo {
+    width: 210px;
+  }
+
+  .water-ring {
+    bottom: 24px;
   }
 }
