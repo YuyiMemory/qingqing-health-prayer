@@ -135,12 +135,33 @@ h1 {
   stroke: rgba(240, 201, 106, 0.72);
   stroke-width: 3;
   stroke-linecap: round;
-  stroke-dasharray: 520;
-  stroke-dashoffset: 520;
-  opacity: 0;
   transform-box: fill-box;
   transform-origin: center;
-  transition: stroke-dashoffset 680ms ease, opacity 520ms ease, transform 560ms ease;
+}
+
+.aura-layer,
+.aura-rays {
+  opacity: 0;
+  transform: scale(0.86);
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: opacity 360ms ease, transform 420ms ease;
+}
+
+.aura-one {
+  stroke-width: 3.6;
+}
+
+.aura-two {
+  stroke-width: 3;
+}
+
+.aura-three {
+  stroke-width: 2.4;
+}
+
+.aura-rays {
+  stroke-width: 3.4;
 }
 
 .monk-body {
@@ -239,15 +260,30 @@ h1 {
   transform: scale(1.1);
 }
 
-.monk[data-step="2"] .aura-lines {
-  opacity: 0.58;
-  stroke-dashoffset: 190;
+.monk[data-step="1"] .aura-one {
+  opacity: 0.78;
+  transform: scale(1);
 }
 
-.monk[data-step="3"] .aura-lines {
+.monk[data-step="2"] .aura-one,
+.monk[data-step="2"] .aura-two {
+  opacity: 0.86;
+  transform: scale(1);
+}
+
+.monk[data-step="3"] .aura-layer,
+.monk[data-step="3"] .aura-rays {
   opacity: 1;
-  stroke-dashoffset: 0;
-  transform: scale(1.04);
+  transform: scale(1);
+}
+
+.monk[data-step="3"] .aura-two {
+  transition-delay: 70ms;
+}
+
+.monk[data-step="3"] .aura-three,
+.monk[data-step="3"] .aura-rays {
+  transition-delay: 140ms;
 }
 
 .monk[data-step="1"] .hand-left,
