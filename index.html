@@ -23,42 +23,45 @@
                   <stop offset="46%" stop-color="#ffd86f" stop-opacity="0.86" />
                   <stop offset="100%" stop-color="#ffd86f" stop-opacity="0" />
                 </radialGradient>
-                <linearGradient id="petalMain" x1="0" x2="0" y1="0" y2="1">
-                  <stop offset="0%" stop-color="#fff4f7" />
-                  <stop offset="48%" stop-color="#f6a6ba" />
-                  <stop offset="100%" stop-color="#d95f86" />
+                <linearGradient id="lotusLine" x1="0" x2="1" y1="0" y2="1">
+                  <stop offset="0%" stop-color="#f6a4bc" />
+                  <stop offset="48%" stop-color="#d95f86" />
+                  <stop offset="100%" stop-color="#8cc5ad" />
                 </linearGradient>
-                <linearGradient id="petalDeep" x1="0" x2="0" y1="0" y2="1">
-                  <stop offset="0%" stop-color="#ffdce7" />
-                  <stop offset="52%" stop-color="#eb7fa0" />
-                  <stop offset="100%" stop-color="#c94f78" />
+                <linearGradient id="lotusTrace" x1="0" x2="1" y1="0" y2="0">
+                  <stop offset="0%" stop-color="#f4d16f" />
+                  <stop offset="52%" stop-color="#fff9ca" />
+                  <stop offset="100%" stop-color="#f6a4bc" />
                 </linearGradient>
-                <linearGradient id="petalSoft" x1="0" x2="0" y1="0" y2="1">
-                  <stop offset="0%" stop-color="#fff7df" />
-                  <stop offset="54%" stop-color="#f7c3c9" />
-                  <stop offset="100%" stop-color="#dc7390" />
-                </linearGradient>
-                <linearGradient id="leafGreen" x1="0" x2="1" y1="0" y2="1">
-                  <stop offset="0%" stop-color="#99cfa7" />
-                  <stop offset="100%" stop-color="#4e9873" />
-                </linearGradient>
-                <filter id="softShadow" x="-30%" y="-30%" width="160%" height="170%">
-                  <feDropShadow dx="0" dy="10" stdDeviation="8" flood-color="#9d4c69" flood-opacity="0.2" />
+                <filter id="dotGlow" x="-80%" y="-80%" width="260%" height="260%">
+                  <feGaussianBlur stdDeviation="3.4" result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
                 </filter>
               </defs>
-              <ellipse class="svg-shadow" cx="130" cy="213" rx="94" ry="17" />
+              <ellipse class="svg-shadow" cx="130" cy="212" rx="92" ry="16" />
               <circle class="svg-heart" cx="130" cy="122" r="50" fill="url(#lotusGlow)" />
-              <g class="lotus-bloom" filter="url(#softShadow)">
-                <path class="svg-leaf leaf-left" d="M130 176C96 174 60 188 33 218C76 224 113 210 132 181Z" />
-                <path class="svg-leaf leaf-right" d="M130 176C164 174 200 188 227 218C184 224 147 210 128 181Z" />
-                <path class="svg-petal outer-left" d="M123 178C81 169 48 134 35 88C83 92 119 126 123 178Z" />
-                <path class="svg-petal outer-right" d="M137 178C179 169 212 134 225 88C177 92 141 126 137 178Z" />
-                <path class="svg-petal mid-left" d="M126 170C91 151 72 108 78 58C113 75 135 115 126 170Z" />
-                <path class="svg-petal mid-right" d="M134 170C169 151 188 108 182 58C147 75 125 115 134 170Z" />
-                <path class="svg-petal inner-left" d="M128 166C105 133 108 84 130 42C148 88 148 132 128 166Z" />
-                <path class="svg-petal inner-right" d="M132 166C155 133 152 84 130 42C112 88 112 132 132 166Z" />
-                <path class="svg-petal center" d="M130 164C106 126 110 76 130 30C150 76 154 126 130 164Z" />
-                <path class="svg-cup" d="M72 174C92 201 113 213 130 213C147 213 168 201 188 174C164 184 145 188 130 188C115 188 96 184 72 174Z" />
+              <g class="function-lotus">
+                <path
+                  id="orbitPath"
+                  class="orbit-path"
+                  d="M130 31C166 70 193 118 224 91C214 145 181 179 130 190C79 179 46 145 36 91C67 118 94 70 130 31Z"
+                />
+                <path class="lotus-line line-orbit" d="M130 31C166 70 193 118 224 91C214 145 181 179 130 190C79 179 46 145 36 91C67 118 94 70 130 31Z" />
+                <path class="lotus-line line-center" d="M130 31C111 79 105 132 130 190C155 132 149 79 130 31Z" />
+                <path class="lotus-line line-left-mid" d="M130 190C91 151 70 94 84 52C122 84 139 128 130 190Z" />
+                <path class="lotus-line line-right-mid" d="M130 190C169 151 190 94 176 52C138 84 121 128 130 190Z" />
+                <path class="lotus-line line-left-outer" d="M130 190C86 180 50 143 34 92C83 98 124 133 130 190Z" />
+                <path class="lotus-line line-right-outer" d="M130 190C174 180 210 143 226 92C177 98 136 133 130 190Z" />
+                <path class="lotus-line line-cup" d="M62 178C88 205 113 217 130 217C147 217 172 205 198 178C166 190 146 194 130 194C114 194 94 190 62 178Z" />
+                <path class="lotus-line line-water" d="M45 216C82 229 178 229 215 216" />
+                <circle class="orbit-dot" r="5.5" filter="url(#dotGlow)">
+                  <animateMotion dur="5.6s" repeatCount="indefinite" rotate="auto">
+                    <mpath href="#orbitPath" />
+                  </animateMotion>
+                </circle>
               </g>
             </svg>
           </div>

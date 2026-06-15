@@ -130,122 +130,93 @@ h1 {
   transition: opacity 520ms ease, transform 560ms ease;
 }
 
-.svg-petal,
-.svg-cup,
-.svg-leaf {
+.function-lotus {
+  fill: none;
+  stroke-linecap: round;
   stroke-linejoin: round;
-  transition: transform 640ms cubic-bezier(0.2, 0.8, 0.16, 1), opacity 420ms ease;
-  transform-box: fill-box;
-  transform-origin: 50% 92%;
 }
 
-.svg-petal {
-  fill: url(#petalMain);
-  stroke: rgba(150, 58, 90, 0.18);
-  stroke-width: 1.4;
+.orbit-path {
+  fill: none;
+  stroke: none;
 }
 
-.outer-left,
-.outer-right {
-  fill: url(#petalDeep);
-  opacity: 0.7;
+.lotus-line {
+  fill: none;
+  stroke: url(#lotusLine);
+  stroke-width: 3.1;
+  stroke-dasharray: 560;
+  stroke-dashoffset: 360;
+  opacity: 0.42;
+  filter: drop-shadow(0 7px 10px rgba(196, 82, 121, 0.13));
+  transition:
+    stroke-dashoffset 760ms cubic-bezier(0.2, 0.8, 0.16, 1),
+    opacity 520ms ease,
+    stroke-width 520ms ease,
+    filter 520ms ease;
 }
 
-.mid-left,
-.mid-right {
-  fill: url(#petalSoft);
-  opacity: 0.82;
+.line-orbit {
+  stroke-width: 3.6;
+  opacity: 0.54;
 }
 
-.inner-left,
-.inner-right,
-.center {
-  opacity: 0.96;
+.line-center,
+.line-left-mid,
+.line-right-mid {
+  stroke-dashoffset: 440;
 }
 
-.svg-leaf {
-  fill: url(#leafGreen);
-  stroke: rgba(58, 117, 83, 0.18);
-  stroke-width: 1.2;
+.line-left-outer,
+.line-right-outer {
+  stroke-dashoffset: 500;
 }
 
-.svg-cup {
-  fill: #f1cb70;
-  stroke: rgba(142, 101, 39, 0.18);
-  stroke-width: 1.2;
+.line-cup,
+.line-water {
+  stroke: rgba(78, 152, 115, 0.62);
+  stroke-width: 2.7;
+  stroke-dashoffset: 280;
 }
 
-.outer-left {
-  transform: rotate(28deg) translate(16px, 28px) scale(0.7);
+.line-water {
+  opacity: 0.34;
 }
 
-.outer-right {
-  transform: rotate(-28deg) translate(-16px, 28px) scale(0.7);
+.orbit-dot {
+  fill: #fff6bb;
+  stroke: #f0c96a;
+  stroke-width: 2;
+  opacity: 0.88;
 }
 
-.mid-left {
-  transform: rotate(20deg) translate(12px, 20px) scale(0.76);
+.lotus[data-step="1"] .lotus-line {
+  stroke-dashoffset: 240;
+  opacity: 0.62;
 }
 
-.mid-right {
-  transform: rotate(-20deg) translate(-12px, 20px) scale(0.76);
+.lotus[data-step="1"] .line-center,
+.lotus[data-step="1"] .line-left-mid,
+.lotus[data-step="1"] .line-right-mid {
+  stroke-dashoffset: 290;
 }
 
-.inner-left {
-  transform: rotate(10deg) translate(5px, 12px) scale(0.86);
+.lotus[data-step="2"] .lotus-line {
+  stroke-dashoffset: 110;
+  opacity: 0.78;
 }
 
-.inner-right {
-  transform: rotate(-10deg) translate(-5px, 12px) scale(0.86);
+.lotus[data-step="2"] .line-center,
+.lotus[data-step="2"] .line-left-mid,
+.lotus[data-step="2"] .line-right-mid,
+.lotus[data-step="2"] .line-left-outer,
+.lotus[data-step="2"] .line-right-outer {
+  stroke-dashoffset: 150;
 }
 
-.center {
-  transform: translateY(10px) scale(0.88);
-}
-
-.lotus[data-step="1"] .outer-left,
-.lotus[data-step="1"] .outer-right {
-  opacity: 0.82;
-}
-
-.lotus[data-step="1"] .mid-left {
-  transform: rotate(8deg) translate(4px, 10px) scale(0.88);
-}
-
-.lotus[data-step="1"] .mid-right {
-  transform: rotate(-8deg) translate(-4px, 10px) scale(0.88);
-}
-
-.lotus[data-step="1"] .inner-left,
-.lotus[data-step="1"] .inner-right,
-.lotus[data-step="1"] .center {
-  transform: translateY(0) scale(0.96);
-}
-
-.lotus[data-step="2"] .outer-left {
-  transform: rotate(12deg) translate(8px, 8px) scale(0.9);
-  opacity: 0.9;
-}
-
-.lotus[data-step="2"] .outer-right {
-  transform: rotate(-12deg) translate(-8px, 8px) scale(0.9);
-  opacity: 0.9;
-}
-
-.lotus[data-step="2"] .mid-left {
-  transform: rotate(-12deg) translate(-2px, 2px) scale(0.98);
-  opacity: 0.96;
-}
-
-.lotus[data-step="2"] .mid-right {
-  transform: rotate(12deg) translate(2px, 2px) scale(0.98);
-  opacity: 0.96;
-}
-
-.lotus[data-step="2"] .inner-left,
-.lotus[data-step="2"] .inner-right,
-.lotus[data-step="2"] .center {
-  transform: translateY(-5px) scale(1);
+.lotus[data-step="2"] .line-cup,
+.lotus[data-step="2"] .line-water {
+  stroke-dashoffset: 100;
 }
 
 .lotus[data-step="3"] .svg-heart {
@@ -253,36 +224,26 @@ h1 {
   transform: scale(1);
 }
 
-.lotus[data-step="3"] .outer-left {
-  transform: rotate(-10deg) translate(-8px, -4px) scale(1);
+.lotus[data-step="3"] .lotus-line {
+  stroke-dashoffset: 0;
   opacity: 1;
+  stroke-width: 3.4;
+  filter: drop-shadow(0 0 10px rgba(240, 201, 106, 0.4));
 }
 
-.lotus[data-step="3"] .outer-right {
-  transform: rotate(10deg) translate(8px, -4px) scale(1);
+.lotus[data-step="3"] .line-orbit {
+  stroke-width: 4.2;
+}
+
+.lotus[data-step="3"] .line-cup,
+.lotus[data-step="3"] .line-water {
+  stroke-dashoffset: 0;
+  opacity: 0.86;
+}
+
+.lotus[data-step="3"] .orbit-dot {
   opacity: 1;
-}
-
-.lotus[data-step="3"] .mid-left {
-  transform: rotate(-24deg) translate(-8px, -8px) scale(1.02);
-  opacity: 1;
-}
-
-.lotus[data-step="3"] .mid-right {
-  transform: rotate(24deg) translate(8px, -8px) scale(1.02);
-  opacity: 1;
-}
-
-.lotus[data-step="3"] .inner-left {
-  transform: rotate(-9deg) translate(-3px, -10px) scale(1.02);
-}
-
-.lotus[data-step="3"] .inner-right {
-  transform: rotate(9deg) translate(3px, -10px) scale(1.02);
-}
-
-.lotus[data-step="3"] .center {
-  transform: translateY(-14px) scale(1.05);
+  filter: drop-shadow(0 0 10px rgba(255, 246, 187, 0.95));
 }
 
 .prayer-app.step-1 .halo {
