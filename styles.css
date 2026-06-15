@@ -53,7 +53,7 @@ button {
   width: min(430px, 100%);
   min-height: min(820px, calc(100svh - 36px));
   display: grid;
-  grid-template-rows: auto minmax(260px, 1fr) auto auto auto auto;
+  grid-template-rows: auto minmax(300px, 1fr) auto auto auto;
   gap: 16px;
   padding: 26px 20px 18px;
   border: 1px solid var(--line);
@@ -67,25 +67,19 @@ button {
   text-align: center;
 }
 
-.kicker {
-  margin: 0 0 8px;
-  color: var(--leaf);
-  font-size: 0.9rem;
-  font-weight: 800;
-}
-
 h1 {
   margin: 0;
-  font-size: clamp(1.75rem, 8vw, 2.7rem);
+  font-size: clamp(1.45rem, 6.2vw, 2.2rem);
   line-height: 1.12;
   letter-spacing: 0;
+  white-space: nowrap;
 }
 
 .lotus-stage {
   position: relative;
   display: grid;
   place-items: center;
-  min-height: 300px;
+  min-height: 320px;
 }
 
 .halo {
@@ -113,9 +107,9 @@ h1 {
 .lotus {
   position: relative;
   z-index: 2;
-  width: 210px;
-  height: 210px;
-  transform: translateY(12px);
+  width: 236px;
+  height: 236px;
+  transform: translateY(22px);
 }
 
 .petal,
@@ -129,42 +123,57 @@ h1 {
 }
 
 .petal {
-  width: 74px;
-  height: 126px;
-  margin-left: -37px;
-  border: 2px solid rgba(151, 65, 91, 0.2);
-  border-radius: 70% 70% 44% 44%;
+  width: 86px;
+  height: 142px;
+  margin-left: -43px;
+  border: 1px solid rgba(151, 65, 91, 0.16);
+  border-radius: 84% 84% 48% 48%;
   background:
-    radial-gradient(circle at 50% 24%, rgba(255, 255, 255, 0.78), transparent 28%),
-    linear-gradient(180deg, #ffd2de, var(--pink) 68%, var(--rose));
-  box-shadow: inset 0 -18px 28px rgba(151, 65, 91, 0.12);
+    radial-gradient(ellipse at 50% 18%, rgba(255, 255, 255, 0.92), transparent 27%),
+    radial-gradient(ellipse at 50% 105%, rgba(188, 59, 101, 0.26), transparent 42%),
+    linear-gradient(180deg, #ffe0e8 0%, #f49bb1 62%, #dc6689 100%);
+  box-shadow:
+    inset 0 -18px 26px rgba(151, 65, 91, 0.12),
+    0 10px 28px rgba(216, 95, 131, 0.12);
 }
 
 .petal-1 {
-  transform: rotate(0deg) translateY(16px) scale(0.92);
+  z-index: 5;
+  transform: rotate(0deg) translateY(26px) scale(0.84);
 }
 
 .petal-2 {
-  transform: rotate(-26deg) translateY(28px) scale(0.82);
+  z-index: 4;
+  transform: rotate(-20deg) translateY(42px) scale(0.78);
 }
 
 .petal-3 {
-  transform: rotate(26deg) translateY(28px) scale(0.82);
+  z-index: 4;
+  transform: rotate(20deg) translateY(42px) scale(0.78);
 }
 
 .petal-4 {
-  transform: rotate(-52deg) translateY(46px) scale(0.72);
-  opacity: 0.9;
+  z-index: 3;
+  transform: rotate(-38deg) translateY(62px) scale(0.74);
+  opacity: 0.94;
 }
 
 .petal-5 {
-  transform: rotate(52deg) translateY(46px) scale(0.72);
-  opacity: 0.9;
+  z-index: 3;
+  transform: rotate(38deg) translateY(62px) scale(0.74);
+  opacity: 0.94;
 }
 
 .petal-6 {
-  transform: rotate(0deg) translateY(62px) scale(0.74, 0.5);
-  background: linear-gradient(180deg, #ffe7b5, #f0c96a);
+  z-index: 2;
+  width: 150px;
+  height: 76px;
+  margin-left: -75px;
+  border-radius: 50% 50% 46% 46%;
+  transform: rotate(0deg) translateY(92px) scale(0.88, 0.62);
+  background:
+    radial-gradient(ellipse at 50% 18%, rgba(255, 255, 255, 0.76), transparent 30%),
+    linear-gradient(180deg, #ffeeb7, #f0c96a);
 }
 
 .heart-light {
@@ -179,55 +188,55 @@ h1 {
 }
 
 .lotus[data-step="1"] .petal-1 {
-  transform: rotate(0deg) translateY(2px) scale(1);
+  transform: rotate(0deg) translateY(10px) scale(0.94);
 }
 
 .lotus[data-step="1"] .petal-2 {
-  transform: rotate(-34deg) translateY(18px) scale(0.9);
+  transform: rotate(-30deg) translateY(32px) scale(0.86);
 }
 
 .lotus[data-step="1"] .petal-3 {
-  transform: rotate(34deg) translateY(18px) scale(0.9);
+  transform: rotate(30deg) translateY(32px) scale(0.86);
 }
 
 .lotus[data-step="2"] .petal-1 {
-  transform: rotate(0deg) translateY(-6px) scale(1.04);
+  transform: rotate(0deg) translateY(-2px) scale(1);
 }
 
 .lotus[data-step="2"] .petal-2 {
-  transform: rotate(-48deg) translateY(6px) scale(0.96);
+  transform: rotate(-48deg) translateY(18px) scale(0.94);
 }
 
 .lotus[data-step="2"] .petal-3 {
-  transform: rotate(48deg) translateY(6px) scale(0.96);
+  transform: rotate(48deg) translateY(18px) scale(0.94);
 }
 
 .lotus[data-step="2"] .petal-4 {
-  transform: rotate(-72deg) translateY(20px) scale(0.86);
+  transform: rotate(-68deg) translateY(34px) scale(0.86);
 }
 
 .lotus[data-step="2"] .petal-5 {
-  transform: rotate(72deg) translateY(20px) scale(0.86);
+  transform: rotate(68deg) translateY(34px) scale(0.86);
 }
 
 .lotus[data-step="3"] .petal-1 {
-  transform: rotate(0deg) translateY(-16px) scale(1.08);
+  transform: rotate(0deg) translateY(-14px) scale(1.04);
 }
 
 .lotus[data-step="3"] .petal-2 {
-  transform: rotate(-62deg) translateY(-4px) scale(1);
+  transform: rotate(-66deg) translateY(4px) scale(1);
 }
 
 .lotus[data-step="3"] .petal-3 {
-  transform: rotate(62deg) translateY(-4px) scale(1);
+  transform: rotate(66deg) translateY(4px) scale(1);
 }
 
 .lotus[data-step="3"] .petal-4 {
-  transform: rotate(-88deg) translateY(6px) scale(0.92);
+  transform: rotate(-96deg) translateY(18px) scale(0.94);
 }
 
 .lotus[data-step="3"] .petal-5 {
-  transform: rotate(88deg) translateY(6px) scale(0.92);
+  transform: rotate(96deg) translateY(18px) scale(0.94);
 }
 
 .lotus[data-step="3"] .heart-light {
@@ -323,31 +332,6 @@ h1 {
   line-height: 1.65;
 }
 
-.action-button,
-.reset-button {
-  min-height: 48px;
-  border: 1px solid rgba(39, 50, 58, 0.16);
-  border-radius: 8px;
-  color: var(--ink);
-  cursor: pointer;
-}
-
-.action-button {
-  width: 100%;
-  margin-top: 14px;
-  background: #ffe8a8;
-  font-weight: 900;
-}
-
-.reset-button {
-  justify-self: center;
-  padding: 0 16px;
-  color: var(--muted);
-  background: rgba(255, 255, 255, 0.48);
-  font-size: 0.86rem;
-  font-weight: 800;
-}
-
 .float-word {
   position: fixed;
   left: 50%;
@@ -403,11 +387,11 @@ h1 {
   }
 
   .lotus-stage {
-    min-height: 238px;
+    min-height: 254px;
   }
 
   .lotus {
-    transform: translateY(18px) scale(0.82);
+    transform: translateY(22px) scale(0.78);
   }
 
   .halo {

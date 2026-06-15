@@ -5,8 +5,6 @@ const counterText = document.querySelector("#counterText");
 const blessingCard = document.querySelector("#blessingCard");
 const blessingTitle = document.querySelector("#blessingTitle");
 const blessingText = document.querySelector("#blessingText");
-const againButton = document.querySelector("#againButton");
-const resetButton = document.querySelector("#resetButton");
 const lamps = [...document.querySelectorAll(".lamp")];
 
 const STORAGE_KEY = "qingqing-lotus-health-blessings-v1";
@@ -153,7 +151,9 @@ function updateCounter() {
 }
 
 function getNextBlessing() {
-  if (usedIndexes.length >= blessings.length) return null;
+  if (usedIndexes.length >= blessings.length) {
+    usedIndexes = [];
+  }
   const remaining = blessings
     .map((_, index) => index)
     .filter((index) => !usedIndexes.includes(index));
@@ -194,27 +194,19 @@ function completePrayer() {
   setStep(3);
   updateCounter();
 
-  if (blessing) {
-    blessingTitle.textContent = "蓮花已開，祝福已至";
-    blessingText.textContent = blessing;
-    againButton.textContent = "再祈願一次";
-  } else {
-    blessingTitle.textContent = "108 份祝福已圓滿";
-    blessingText.textContent = "願平安長久相伴，願媽媽身體一日比一日安穩。";
-    againButton.textContent = "重新開始 108 祝福";
-  }
+  blessingTitle.textContent = "蓮花已開，祝福已至";
+  blessingText.textContent = blessing;
 
   blessingCard.hidden = false;
 }
 
 function handlePrayer(event) {
-  const target = event.target;
-  if (target.closest("button")) return;
-
   const x = event.clientX || window.innerWidth / 2;
   const y = event.clientY || window.innerHeight / 2;
 
-  if (isComplete) return;
+  if (isComplete) {
+    startAnotherPrayer();
+  }
 
   const nextStep = Math.min(3, step + 1);
   setStep(nextStep);
@@ -228,30 +220,13 @@ function handlePrayer(event) {
 }
 
 function startAnotherPrayer() {
-  if (usedIndexes.length >= blessings.length) {
-    resetAllBlessings();
-    return;
-  }
-
   isComplete = false;
   blessingCard.hidden = true;
   stepText.textContent = "心中默念一句祝福，然後輕點螢幕";
   setStep(0);
-}
-
-function resetAllBlessings() {
-  usedIndexes = [];
-  saveUsedIndexes();
-  isComplete = false;
-  blessingCard.hidden = true;
-  stepText.textContent = "心中默念一句祝福，然後輕點螢幕";
-  setStep(0);
-  updateCounter();
 }
 
 app.addEventListener("pointerup", handlePrayer);
-againButton.addEventListener("click", startAnotherPrayer);
-resetButton.addEventListener("click", resetAllBlessings);
 
 setStep(0);
 updateCounter();
